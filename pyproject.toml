@@ -1,0 +1,31 @@
+[project]
+name = "fgi"
+version = "1.0.0"
+requires-python = ">= 3.10"
+
+[tool.poetry]
+name = "fgi"
+version = "1.0.0"
+description = ""
+authors = ["commonuserlol <commonuserlol@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+requests = "^2.32.3"
+colorama = "^0.4.6"
+bandit = {extras = ["toml"], version = "^1.7.9"}
+
+[tool.ruff]
+line-length = 88
+select = ["E4", "E7", "E9", "F", "W"]
+
+[tool.bandit]
+skips = ["B108"]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+fgi = "fgi.main:main"
