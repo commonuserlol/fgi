@@ -44,7 +44,9 @@ Run `fgi -h` to get options
                         Here
     ```
 
+### Acknowledgements
+[objection](https://github.com/sensepost/objection) - smali injector & manifest stuff 
 
 ### License
 This repository is licensed under a GNU General Public v3 License.<br>
-See LICENSE file for details
+See [LICENSE](LICENSE) file for details
