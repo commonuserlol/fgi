@@ -158,6 +158,8 @@ class APKUtils:
     def __del__(self):
         if self.should_delete and self.get_temp_path().exists():
             shutil.rmtree(self.get_temp_path())
+        if not self.get_temp_path().exists():
+            return
         # GC everything if program died before GC in function
         self.path_utils.get_merged_apk_path().unlink(True)
         self.path_utils.get_built_apk_path().unlink(True)
