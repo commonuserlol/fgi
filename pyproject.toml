@@ -14,7 +14,6 @@ readme = "README.md"
 python = "^3.12"
 requests = "^2.32.3"
 colorama = "^0.4.6"
-bandit = {extras = ["toml"], version = "^1.7.9"}
 
 [tool.ruff]
 line-length = 88
