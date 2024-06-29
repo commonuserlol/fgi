@@ -84,6 +84,8 @@ def main():
     app = App()
     try:
         app.run()
+    except KeyboardInterrupt:
+        Logger.warn("Aborting...")
     except (RuntimeError, AssertionError) as e:
         Logger.error(e)
     except Exception as e:
