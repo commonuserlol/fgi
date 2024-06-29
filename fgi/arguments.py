@@ -108,7 +108,7 @@ class Arguments:
             assert self.input.exists(), "Input APK doesn't exist"
         if self.out is None:
             if ".apk" not in self.input.name:
-                self.out = Path.cwd() / (self.input.name + ".patched.apk")
+                self.out = Path.cwd() / (self.input.absolute().name + ".patched.apk")
             else:
                 self.out = Path.cwd() / self.input.name.replace(".apk", ".patched.apk")
         assert (
