@@ -1,7 +1,7 @@
 import logging
 import traceback
 
-from fgi.apk import APKUtils
+from fgi.apk import APK
 from fgi.arguments import Arguments
 from fgi.cache import Cache
 from fgi.frida_config import CONFIG_TYPES
@@ -31,7 +31,7 @@ class App:
         else:
             Logger.warn("Skipping update check for deps")
 
-        apk = APKUtils(arguments, cache.get_apkeditor_path())
+        apk = APK(arguments, cache.get_apkeditor_path())
         if arguments.is_split_apk():
             apk.merge()
         apk.decode()

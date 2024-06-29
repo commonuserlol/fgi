@@ -7,7 +7,7 @@ from fgi.logger import Logger
 from fgi.path import PathUtils
 
 
-class APKUtils:
+class APK:
     def __init__(self, arguments: Arguments, apkeditor_path: Path):
         self.is_split_apk = arguments.is_split_apk()
         self.should_delete = not arguments.no_cleanup
