@@ -22,7 +22,7 @@ Another frida-gadget injector into APK with some key features:
 Run `fgi -h` to get options
 
 #### Built-in configs
-These configs are slightly edited from frida's [site](frida.re)
+These configs are slightly edited from frida's [site](https://frida.re)
 * `listen` and `connect` are using `0.0.0.0` instead of `127.0.0.1`
 * `script` is not modified
 
