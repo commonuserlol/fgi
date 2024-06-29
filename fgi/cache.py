@@ -2,16 +2,11 @@ import json
 import re
 from pathlib import Path
 
-from fgi.logger import Logger
-from fgi.constants import (
-    FRIDA_GADGET_ARCH_PATTERN,
-    FRIDA_TAGGED_URL,
-    FRIDA_URL,
-    APKEDITOR_TAGGED_URL,
-    APKEDITOR_URL,
-    ARCHITECTURES,
-)
+from fgi.constants import (APKEDITOR_TAGGED_URL, APKEDITOR_URL, ARCHITECTURES,
+                           FRIDA_GADGET_ARCH_PATTERN, FRIDA_TAGGED_URL,
+                           FRIDA_URL)
 from fgi.downloader import Downloader
+from fgi.logger import Logger
 
 
 class Cache:

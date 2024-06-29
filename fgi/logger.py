@@ -1,5 +1,6 @@
 import logging
 
+
 class Logger:
     @staticmethod
     def debug(msg: str):

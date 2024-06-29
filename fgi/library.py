@@ -1,6 +1,7 @@
 from pathlib import Path
-from fgi.constants import ARCHITECTURES
 from shutil import copy
+
+from fgi.constants import ARCHITECTURES
 from fgi.logger import Logger
 
 

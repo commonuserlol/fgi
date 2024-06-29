@@ -1,5 +1,7 @@
 import lzma
+
 import requests
+
 from fgi.logger import Logger
 
 

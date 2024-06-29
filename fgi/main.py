@@ -1,13 +1,14 @@
 import logging
 import traceback
-from fgi.logger import Logger
-from fgi.frida_config import CONFIG_TYPES
+
+from fgi.apk import APKUtils
 from fgi.arguments import Arguments
 from fgi.cache import Cache
-from fgi.apk import APKUtils
-from fgi.smali import Smali
+from fgi.frida_config import CONFIG_TYPES
 from fgi.library import Library
+from fgi.logger import Logger
 from fgi.manifest import Manifest
+from fgi.smali import Smali
 
 
 class App:

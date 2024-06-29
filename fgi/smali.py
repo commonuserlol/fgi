@@ -1,4 +1,5 @@
 from pathlib import Path
+
 from fgi.constants import SMALI_FULL_LOAD_LIBRARY, SMALI_PARTIAL_LOAD_LIBRARY
 from fgi.logger import Logger
 

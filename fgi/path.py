@@ -1,7 +1,8 @@
 import random
 import string
 from pathlib import Path
-from fgi.constants import TEMP_PATH_LEN, PREFIXES
+
+from fgi.constants import PREFIXES, TEMP_PATH_LEN
 from fgi.logger import Logger
 
 

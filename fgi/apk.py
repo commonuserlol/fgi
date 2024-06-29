@@ -1,9 +1,10 @@
-import subprocess
 import shutil
+import subprocess
 from pathlib import Path
+
 from fgi.arguments import Arguments
-from fgi.path import PathUtils
 from fgi.logger import Logger
+from fgi.path import PathUtils
 
 
 class APKUtils:
