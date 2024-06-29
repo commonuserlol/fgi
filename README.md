@@ -20,6 +20,14 @@ Another frida-gadget injector into APK with some key features:
 
 ### Usage
 Run `fgi -h` to get options
+
+#### Built-in configs
+These configs are slightly edited from frida's [site](frida.re)
+* `listen` and `connect` are using `0.0.0.0` instead of `127.0.0.1`
+* `script` is not modified
+
+If you need to use other configuration options, such as using v8 runtime, consider using the `--config-path` option
+
 #### Examples
 1. `fgi -i target.apk --config-type listen` - inject **arm, arm64, x86, x86_64** frida-gadget into target.apk with **listen** mode
 
