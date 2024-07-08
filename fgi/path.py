@@ -25,9 +25,7 @@ class PathUtils:
 
     def _get_temp_apk_path(self, suffix: str) -> Path:
         if "." + suffix not in self.input_apk_path.name:
-            child = self.input_apk_path.name.replace(
-                ".apk", f".{suffix}.apk"
-            )
+            child = self.input_apk_path.name.replace(".apk", f".{suffix}.apk")
         else:
             child = self.input_apk_path.name
         for p in PREFIXES:

@@ -132,7 +132,7 @@ class APK:
         )
         shutil.move(
             self.path_utils.get_signed_apk_path(), self.path_utils.get_out_apk_path()
-        ) # XXX: assume that everything is ready
+        )  # XXX: assume that everything is ready
 
     def get_entry_activity(self):
         output = self._run_command_and_check(

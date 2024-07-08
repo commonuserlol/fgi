@@ -41,6 +41,8 @@ class Library:
         for arch in self.architectures:
             self.ensure_arch(arch)
             Logger.info(f"Copying {arch} frida-gadget")
+            if (self.get_arch_path(arch) / self.library_name).exists():
+                raise RuntimeError("frida-gadget already injected with specified name")
             copy(
                 self.cache_home_path / (arch + ".so"),
                 self.get_arch_path(arch) / self.library_name,
@@ -50,7 +52,8 @@ class Library:
         for arch in self.architectures:
             Logger.debug(f"Copying {arch} config")
             with open(
-                self.get_arch_path(arch) / self.library_name.replace(".so", ".config.so"),
+                self.get_arch_path(arch)
+                / self.library_name.replace(".so", ".config.so"),
                 "w+",
                 encoding="utf8",
             ) as f:
