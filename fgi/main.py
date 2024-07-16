@@ -15,10 +15,7 @@ class App:
     def run(self):
         arguments = Arguments.create()
 
-        logging.basicConfig(
-            level=logging.DEBUG if arguments.verbose else logging.INFO,
-            format="%(relativeCreated)d - %(levelname).1s: %(message)s",
-        )
+        Logger.initialize(arguments.verbose)
 
         arguments.validate()
 
