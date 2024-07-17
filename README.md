@@ -8,11 +8,24 @@ Another frida-gadget injector into APK with some key features:
 * Using APKEditor instead of apktool to reduce the number of dependencies and faster build
 
 ### Installing
-**ONLY LINUX IS SUPPORTED**<br>
-**WINDOWS SUPPORT is NOT planned**<br>
-**WINDOWS USERS SHOULD USE WSL**
+#### Windows (tested on Windows 11)
+* Ensure Android Studio or Android Build tools installed
+* Ensure JDK installed
+* Ensure deps in path, if not:
+    * Open start menu and type `environment`
+    * Click on **Edit the system environment variables**
+    * Click **Environment variables...**
+    * Select `Path` and click **Edit...**
+    * Add build tools and `keytool` into path:
+      * Click on **New**
+      * Enter path to build tools, e.g. `C:\Users\User\AppData\Local\build-tools\35.0.0`
+        * Note: version of build tools may be different
+      * Click **New** again
+      * Enter path of JAVA_HOME + `/bin`, e.g. `C:\Program Files\Java\jdk-22\bin`
 
-* Ensure `zipalign` and `apksigner` or Android SDK installed
+#### Linux
+* Ensure JDK installed
+* Ensure `zipalign` and `apksigner` or Android SDK installed, if not:
     * Add `~/Android/Sdk/build-tools/x.y.z` to path if you're using Android SDK
 * Run `pip install git+https://github.com/commonuserlol/fgi`
     * Add `--break-system-packages` if pip refuses to install
@@ -53,7 +66,7 @@ If you need to use other configuration options, such as using v8 runtime, consid
     ```
 
 ### Acknowledgements
-[objection](https://github.com/sensepost/objection) - smali injector & manifest stuff 
+[objection](https://github.com/sensepost/objection) - smali injector & manifest stuff
 
 ### License
 This repository is licensed under a GNU General Public v3 License.<br>
