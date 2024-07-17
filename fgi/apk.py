@@ -58,7 +58,7 @@ class APK:
         )
 
     def build(self):
-        Logger.info("Buidling APK...")
+        Logger.info("Building APK...")
         self._run_command_and_check(
             [
                 "java",
