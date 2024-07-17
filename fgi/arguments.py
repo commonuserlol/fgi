@@ -1,6 +1,6 @@
 import argparse
 import json
-import platform
+import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Optional
@@ -70,8 +70,9 @@ class Arguments:
             "-r",
             "--temp-root-path",
             type=Path,
+            default=tempfile.gettempdir(),
             help="Root path where temporary directory will be created",
-        )  # XXX: default value determined at runtime
+        )
 
         parser.add_argument(
             "--no-cleanup",
@@ -128,15 +129,6 @@ class Arguments:
         assert self.script_name.startswith("lib") and self.script_name.endswith(
             ".so"
         ), "Invalid name for frida script"
-
-        os = platform.system()
-        if os == "Linux":
-            self.temp_root_path = Path("/tmp")
-        elif os == "Windows":
-            self.temp_root_path = Path("%TEMP%")
-        else:
-            raise RuntimeError("Your OS isn't supported :(")
-
         assert self.temp_root_path.exists(), "Root temp path doesn't exist"
 
     def is_builtin_config(self) -> bool:
