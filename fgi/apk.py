@@ -1,3 +1,4 @@
+import platform
 import shutil
 import subprocess
 from pathlib import Path
@@ -117,9 +118,15 @@ class APK:
             self.path_utils.get_zipaligned_apk_path(),
             self.path_utils.get_signed_apk_path(),
         )
+
+        apksigner_executable = "apksigner"
+
+        if platform.system() == "Windows":
+            apksigner_executable += ".bat"
+
         self._run_command_and_check(
             [
-                "apksigner",
+                apksigner_executable,
                 "sign",
                 "--ks",
                 key_path,
