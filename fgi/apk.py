@@ -35,7 +35,7 @@ class APK:
         ]
         return list(
             filter(
-                lambda x: ("base" in x and "patched" not in x) or "split_" in x, files
+                lambda x: ("base" in x or "split_" in x) and "patched" not in x, files
             )
         )
 
@@ -46,7 +46,7 @@ class APK:
         self.merge_temp.mkdir()
 
         candidates = self._filter_split_apks()
-        Logger.debug(f"Filtered split APKs: {''.join(candidates)}")
+        Logger.debug(f"Filtered split APKs: {', '.join(candidates)}")
         Logger.debug(f"Copying split APKs to {self.merge_temp}...")
         for apk in candidates:
             shutil.copy(apk, self.merge_temp / apk)
