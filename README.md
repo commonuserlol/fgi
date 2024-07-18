@@ -32,6 +32,11 @@ Another frida-gadget injector into APK with some key features:
 * Add `~/.local/bin` to path
 
 ### Usage
+**If you deal with pretty big APK, make sure that tmpfs remounted to bigger size (linux only) or drive space is enough**
+
+* Remount tmpfs - `mount -o remount,size=4G /tmp`
+
+
 Run `fgi -h` to get options
 
 #### Built-in configs
