@@ -1,4 +1,3 @@
-import logging
 import traceback
 
 from fgi.apk import APK

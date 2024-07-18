@@ -33,6 +33,9 @@ class PathUtils:
                 child = child.replace(f".{p}.apk", ".apk")
         return self.temp_path.parent / child
 
+    def get_merge_temp_path(self) -> Path:
+        return self.temp_path.parent / (self.input_apk_path.absolute().name + "-mt")
+
     def get_merged_apk_path(self) -> Path:
         if ".apk" not in self.input_apk_path.name:
             Logger.debug("Split APKs detected, fixing temp path")

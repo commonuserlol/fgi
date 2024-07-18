@@ -16,6 +16,7 @@ class APK:
             arguments.input, arguments.out, arguments.temp_root_path
         )
         self.apkeditor_path = apkeditor_path
+        self.merge_temp: Path = None
 
     def _run_command_and_check(self, cmd: list[str]):
         try:
@@ -26,8 +27,30 @@ class APK:
                 f"Command {cmd} returned non-zero exit status: {e.output.decode('utf8')}"
             )
 
+    def _filter_split_apks(self) -> list[str]:
+        files = [
+            str(path)
+            for path in self.path_utils.get_input_apk_path().glob("*")
+            if path.is_file()
+        ]
+        return list(
+            filter(
+                lambda x: ("base" in x and "patched" not in x) or "split_" in x, files
+            )
+        )
+
     def merge(self):
         Logger.info("Merging split APKs...")
+
+        self.merge_temp = self.path_utils.get_merge_temp_path()
+        self.merge_temp.mkdir()
+
+        candidates = self._filter_split_apks()
+        Logger.debug(f"Filtered split APKs: {''.join(candidates)}")
+        Logger.debug(f"Copying split APKs to {self.merge_temp}...")
+        for apk in candidates:
+            shutil.copy(apk, self.merge_temp / apk)
+
         self._run_command_and_check(
             [
                 "java",
@@ -35,11 +58,14 @@ class APK:
                 self.apkeditor_path,
                 "m",
                 "-i",
-                self.path_utils.get_input_apk_path(),
+                self.merge_temp,
                 "-o",
                 self.path_utils.get_merged_apk_path(),
             ]
         )
+        shutil.rmtree(self.merge_temp)
+        self.merge_temp = None
+
         self.path_utils.switch_input_to_merged()
 
     def decode(self):
@@ -169,6 +195,8 @@ class APK:
         if not self.get_temp_path().exists():
             return
         # GC everything if program died before GC in function
+        if self.merge_temp is not None:
+            shutil.rmtree(self.merge_temp)
         self.path_utils.get_merged_apk_path().unlink(True)
         self.path_utils.get_built_apk_path().unlink(True)
         self.path_utils.get_zipaligned_apk_path().unlink(True)
