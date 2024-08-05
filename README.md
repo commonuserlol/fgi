@@ -22,6 +22,7 @@ Another frida-gadget injector into APK with some key features:
         * Note: version of build tools may be different
       * Click **New** again
       * Enter path of JAVA_HOME + `/bin`, e.g. `C:\Program Files\Java\jdk-22\bin`
+* Run `pip install git+https://github.com/commonuserlol/fgi`
 
 #### Linux
 * Ensure JDK installed
