@@ -21,10 +21,10 @@ class APK:
     def _run_command_and_check(self, cmd: list[str]):
         try:
             Logger.debug(f"Running {cmd}")
-            return subprocess.check_output(cmd, stderr=subprocess.STDOUT).decode("utf8")
+            return subprocess.check_output(cmd, stderr=subprocess.STDOUT).decode()
         except subprocess.CalledProcessError as e:
             raise RuntimeError(
-                f"Command {cmd} returned non-zero exit status: {e.output.decode('utf8')}"
+                f"Command {cmd} returned non-zero exit status: {e.output.decode()}"
             )
 
     def _filter_split_apks(self) -> list[str]:
