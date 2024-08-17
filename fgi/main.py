@@ -58,7 +58,7 @@ class App:
                 else CONFIG_TYPES[arguments.config_type]
             )
         else:
-            with open(arguments.script_path, "r", encoding="utf8") as f:
+            with open(arguments.config_path, "r", encoding="utf8") as f:
                 config = f.read()
                 library.copy_config(config)
 
