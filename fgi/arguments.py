@@ -4,6 +4,7 @@ import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Optional
+from zipfile import ZipFile
 
 from fgi.constants import ARCHITECTURES
 
@@ -150,3 +151,10 @@ class Arguments:
 
     def is_split_apk(self) -> bool:
         return self.input.is_dir()
+
+    def is_xapk(self) -> bool:
+        return self.input.suffix == ".xapk"
+    
+    def is_contain_obb(self):
+        with ZipFile(self.input) as zipfile:
+            return self.is_xapk() and any(filter(lambda x: x.filename.startswith("Android"), zipfile.filelist))

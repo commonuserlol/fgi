@@ -28,7 +28,9 @@ class App:
             Logger.warn("Skipping update check for deps")
 
         apk = APK(arguments, cache.get_apkeditor_path())
-        if arguments.is_split_apk():
+        if arguments.is_split_apk() or arguments.is_xapk():
+            if arguments.is_contain_obb():
+                raise RuntimeError("We don't support xapk with obb yet, please file a bug")
             apk.merge()
         apk.decode()
 
