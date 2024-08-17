@@ -154,7 +154,9 @@ class Arguments:
 
     def is_xapk(self) -> bool:
         return self.input.suffix == ".xapk"
-    
+
     def is_contain_obb(self):
         with ZipFile(self.input) as zipfile:
-            return self.is_xapk() and any(filter(lambda x: x.filename.startswith("Android"), zipfile.filelist))
+            return self.is_xapk() and any(
+                filter(lambda x: x.filename.startswith("Android"), zipfile.filelist)
+            )

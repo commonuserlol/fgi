@@ -2,6 +2,7 @@ import platform
 import shutil
 import subprocess
 from pathlib import Path
+from zipfile import ZipFile
 
 from fgi.arguments import Arguments
 from fgi.logger import Logger
@@ -35,9 +36,41 @@ class APK:
         ]
         return list(
             filter(
-                lambda x: (x.startswith("base") or x.startswith("split_") or x.startswith("config")) and x.endswith(".apk"), files
+                lambda x: (
+                    x.startswith("base")
+                    or x.startswith("split_")
+                    or x.startswith("config")
+                )
+                and x.endswith(".apk"),
+                files,
             )
         )
+
+    def merge_xapk(self):
+        Logger.info("Merging XAPK...")
+
+        self.merge_temp = self.path_utils.get_merge_temp_path()
+        self.merge_temp.mkdir()
+
+        with ZipFile(self.path_utils.get_input_apk_path()) as zipfile:
+            zipfile.extractall(self.merge_temp)
+
+        self._run_command_and_check(
+            [
+                "java",
+                "-jar",
+                self.apkeditor_path,
+                "m",
+                "-i",
+                self.merge_temp,
+                "-o",
+                self.path_utils.get_merged_apk_path(),
+            ]
+        )
+        shutil.rmtree(self.merge_temp)
+        self.merge_temp = None
+
+        self.path_utils.switch_input_to_merged()
 
     def merge(self):
         Logger.info("Merging split APKs...")
