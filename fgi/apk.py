@@ -29,13 +29,13 @@ class APK:
 
     def _filter_split_apks(self) -> list[str]:
         files = [
-            str(path)
+            path.name
             for path in self.path_utils.get_input_apk_path().glob("*")
             if path.is_file()
         ]
         return list(
             filter(
-                lambda x: ("base" in x or "split_" in x) and "patched" not in x, files
+                lambda x: (x.startswith("base") or x.startswith("split_") or x.startswith("config")) and x.endswith(".apk"), files
             )
         )
 
