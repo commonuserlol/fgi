@@ -27,19 +27,15 @@ class App:
         else:
             Logger.warn("Skipping update check for deps")
 
-        apk = APK(arguments, cache.get_apkeditor_path())
-        if arguments.is_split_apk():
-            apk.merge()
-        elif arguments.is_xapk():
-            if arguments.is_contain_obb():
-                raise RuntimeError(
-                    "We don't support xapk with obb yet, please file a bug"
-                )
-            apk.merge_xapk()
+        loader_type = arguments.pick_loader()
+        Logger.debug(f"Using loader: {loader_type}")
+        loader = loader_type(cache.get_apkeditor_path(), arguments.input, arguments.temp_root_path)
+        loader.load()
+        apk = APK(cache.get_apkeditor_path(), arguments, loader)
         apk.decode()
 
         entrypoint = apk.get_entry_activity()
-        smali = Smali.find(apk.get_temp_path(), entrypoint)
+        smali = Smali.find(apk.temp_path, entrypoint)
         smali.perform_injection(arguments.library_name)
         del smali
 
@@ -47,15 +43,13 @@ class App:
             arguments.library_name,
             arguments.architectures,
             cache.get_home_path(),
-            apk.get_temp_path(),
+            apk.temp_path,
         )
         library.copy_frida()
 
         if arguments.is_builtin_config():
             library.copy_config(
-                CONFIG_TYPES[arguments.config_type] % arguments.script_name
-                if arguments.is_script_required()
-                else CONFIG_TYPES[arguments.config_type]
+                CONFIG_TYPES[arguments.config_type] % arguments.script_name if arguments.is_script_required() else CONFIG_TYPES[arguments.config_type]
             )
         else:
             with open(arguments.config_path, "r", encoding="utf8") as f:
@@ -68,7 +62,7 @@ class App:
                 library.copy_script(arguments.script_name, script)
         del library
 
-        manifest = Manifest(apk.get_temp_path() / "AndroidManifest.xml")
+        manifest = Manifest(apk.temp_path / "AndroidManifest.xml")
         manifest.enable_extract_native_libs()
         del manifest
 
@@ -90,7 +84,7 @@ def main():
     except KeyboardInterrupt:
         Logger.warn("Aborting...")
     except (RuntimeError, AssertionError) as e:
-        Logger.error(e)
+        Logger.error(str(e))
     except Exception as e:
         Logger.error(f"Unexpected exception: {e}")
         Logger.error(traceback.format_exc())

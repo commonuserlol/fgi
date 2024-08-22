@@ -13,14 +13,13 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.12"
 requests = "^2.32.3"
-colorama = "^0.4.6"
 
 [tool.ruff]
-line-length = 88
+line-length = 160
 lint.select = ["E4", "E7", "E9", "F", "W"]
 
-[tool.bandit]
-skips = ["B108"]
+[tool.basedpyright]
+reportImportCycles = false
 
 [build-system]
 requires = ["setuptools>=61.0"]
