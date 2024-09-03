@@ -52,8 +52,7 @@ class Library:
         for arch in self.architectures:
             Logger.debug(f"Copying {arch} config")
             with open(
-                self.get_arch_path(arch)
-                / self.library_name.replace(".so", ".config.so"),
+                self.get_arch_path(arch) / self.library_name.replace(".so", ".config.so"),
                 "w+",
                 encoding="utf8",
             ) as f:

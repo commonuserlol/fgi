@@ -9,9 +9,7 @@ FRIDA_URL = "https://api.github.com/repos/frida/frida/releases/latest"
 FRIDA_TAGGED_URL = "https://api.github.com/repos/frida/frida/releases/tags/%s"
 FRIDA_GADGET_ARCH_PATTERN = r"android-(\w+[-\w]*).so"
 APKEDITOR_URL = "https://api.github.com/repos/REAndroid/APKEditor/releases/latest"
-APKEDITOR_TAGGED_URL = (
-    "https://api.github.com/repos/REAndroid/APKEditor/releases/tags/%s"
-)
+APKEDITOR_TAGGED_URL = "https://api.github.com/repos/REAndroid/APKEditor/releases/tags/%s"
 
 SMALI_FULL_LOAD_LIBRARY = (
     ".method static constructor <init>()V\n"  # Using <clinit> may cause method overflow
@@ -26,10 +24,6 @@ SMALI_FULL_LOAD_LIBRARY = (
     ".end method\n"
 )
 
-SMALI_PARTIAL_LOAD_LIBRARY = (
-    '\n    const-string v0, "%s"\n'
-    "\n"
-    "    invoke-static {v0}, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V\n"
-)
+SMALI_PARTIAL_LOAD_LIBRARY = '\n    const-string v0, "%s"\n' "\n" "    invoke-static {v0}, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V\n"
 
 PREFIXES = ["m", "b", "z", "s"]

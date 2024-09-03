@@ -1,8 +1,9 @@
+import shutil
 from typing import override
+
+from fgi.cmd import run_command_and_check
 from fgi.loaders.base import BaseLoader
 from fgi.logger import Logger
-import shutil
-from fgi.cmd import run_command_and_check
 
 
 class SplitAPKLoader(BaseLoader):

@@ -137,7 +137,7 @@ class Arguments:
             assert config_type, '"type" key in frida\'s config is missing'
 
             return config_type == "script"
-        raise RuntimeError("Unreachable!")
+        return False
 
     def is_split_apk(self):
         return self.input.is_dir()

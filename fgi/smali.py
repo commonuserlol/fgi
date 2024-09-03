@@ -50,11 +50,7 @@ class Smali:
             return pos - 1
 
     def find_end_of_method(self, start: int) -> int:
-        end_methods = [
-            (i + start)
-            for i, x in enumerate(self.content[start:])
-            if ".end method" in x
-        ]
+        end_methods = [(i + start) for i, x in enumerate(self.content[start:]) if ".end method" in x]
 
         if len(end_methods) <= 0:
             raise RuntimeError("Coundn't find the end of the existing constructor")
@@ -74,29 +70,17 @@ class Smali:
 
             inject_point = self.find_inject_point(marker)
 
-            self.content = (
-                self.content[:inject_point]
-                + (SMALI_PARTIAL_LOAD_LIBRARY % library_name).splitlines(keepends=True)
-                + self.content[inject_point:]
-            )
+            self.content = self.content[:inject_point] + (SMALI_PARTIAL_LOAD_LIBRARY % library_name).splitlines(keepends=True) + self.content[inject_point:]
 
         else:
             Logger.debug("<init> is NOT present in entry activity")
 
-            self.content = (
-                self.content[:marker]
-                + (SMALI_FULL_LOAD_LIBRARY % library_name).splitlines(keepends=True)
-                + self.content[marker:]
-            )
+            self.content = self.content[:marker] + (SMALI_FULL_LOAD_LIBRARY % library_name).splitlines(keepends=True) + self.content[marker:]
 
     def update_locals(self, marker: int):
         end_of_method = self.find_end_of_method(marker)
 
-        defined_locals = [
-            i
-            for i, x in enumerate(self.content[marker:end_of_method])
-            if ".locals" in x
-        ]
+        defined_locals = [i for i, x in enumerate(self.content[marker:end_of_method]) if ".locals" in x]
 
         if len(defined_locals) <= 0:
             Logger.warn("Couldn't to determine any .locals for the target constructor")
@@ -113,9 +97,7 @@ class Smali:
             Logger.warn("Couldn't to parse .locals value for the injected constructor")
             return
 
-        self.content[locals_smali_offset] = self.content[locals_smali_offset].replace(
-            str(defined_local_value_as_int), str(new_locals_value)
-        )
+        self.content[locals_smali_offset] = self.content[locals_smali_offset].replace(str(defined_local_value_as_int), str(new_locals_value))
 
     def perform_injection(self, library_name: str):
         library_name = library_name.replace("lib", "").replace(".so", "")
@@ -125,9 +107,7 @@ class Smali:
 
         # ensure we got a marker
         if len(marker) <= 0:
-            raise RuntimeError(
-                "Couldn't to determine position to inject a loadLibrary call"
-            )
+            raise RuntimeError("Couldn't to determine position to inject a loadLibrary call")
 
         # pick the first position for the inject. add one line as we
         # want to inject right below the comment we matched

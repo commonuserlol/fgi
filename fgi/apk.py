@@ -1,13 +1,14 @@
 import platform
-import shutil
 import random
+import shutil
 import string
 from pathlib import Path
+
 from fgi.arguments import Arguments
+from fgi.cmd import run_command_and_check
 from fgi.loaders.base import BaseLoader
 from fgi.loaders.split import SplitAPKLoader
 from fgi.logger import Logger
-from fgi.cmd import run_command_and_check
 
 
 class APK:

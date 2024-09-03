@@ -10,9 +10,7 @@ class RelativeSeconds(logging.Formatter):
 class Logger:
     @staticmethod
     def initialize(verbose: bool):
-        formatter = RelativeSeconds(
-            "%(relativeCreated)ds - %(levelname).1s: %(message)s"
-        )
+        formatter = RelativeSeconds("%(relativeCreated)ds - %(levelname).1s: %(message)s")
         logging.basicConfig(
             level=logging.DEBUG if verbose else logging.INFO,
             format="",
