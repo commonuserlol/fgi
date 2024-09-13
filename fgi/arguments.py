@@ -122,7 +122,7 @@ class Arguments:
         assert self.temp_root_path.exists(), "Root temp path doesn't exist"
 
     def is_builtin_config(self) -> bool:
-        return not self.config_path and self.config_type
+        return self.config_path is None and self.config_type is not None
 
     def is_script_required(self) -> bool:
         if self.config_type == "script":
@@ -152,7 +152,7 @@ class Arguments:
     def pick_loader(self) -> type[BaseLoader]:
         if self.is_split_apk():
             return SplitAPKLoader
-        elif self.input.suffix == ".xapk":
-            return BaseLoader
+        elif self.is_split_apk():
+            raise RuntimeError("XAPK is not supported yet")
         else:
             return APKLoader

@@ -1,6 +1,7 @@
 poetry.lock
 __pycache__
 build
+db
 *.egg*
 tests
 *.apk
