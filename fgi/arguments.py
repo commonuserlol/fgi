@@ -37,6 +37,7 @@ class Arguments:
             "--architectures",
             nargs="*",
             choices=ARCHITECTURES.keys(),
+            default=[],
             help="Target architecture(s) for frida-gadget. Defaults to already existing in APK",
         )
 

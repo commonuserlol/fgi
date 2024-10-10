@@ -33,11 +33,21 @@ class Library:
     def get_root_path(self) -> Path:
         return self.temp_path / "root" / "lib"
 
+    def list_architectures(self) -> list[str]:
+        apk_architectures = list(map(lambda x: x.name, self.get_root_path().glob("*")))
+        return [k for k, v in ARCHITECTURES.items() if v in apk_architectures]
+
     def get_arch_path(self, arch: str) -> Path:
         return self.get_root_path() / ARCHITECTURES[arch]
 
     def copy_frida(self):
         self.ensure()
+
+        if len(self.architectures) == 0:
+            self.architectures = self.list_architectures()
+            assert len(self.architectures) > 0, "Failed to get APK architectures, please file a bug"
+            Logger.debug(f"Using architectures from APK: {', '.join(self.architectures)}")
+
         for arch in self.architectures:
             self.ensure_arch(arch)
             Logger.info(f"Copying {arch} frida-gadget")

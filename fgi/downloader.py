@@ -9,7 +9,7 @@ class Downloader:
     def __init__(self, url: str, tagged_url: str):
         self.url = url
         self.tagged_url = tagged_url
-        self.tag: str = ""
+        self.tag: str | None = None
 
     def _request(self, url: str):
         try:
@@ -23,6 +23,7 @@ class Downloader:
     def get_latest_release_tag(self) -> str:
         if self.tag is None:
             self.tag = self._request(self.url).json().get("tag_name")
+            Logger.debug(f"Latest release tag for {self.url}: {self.tag}")
         return self.tag
 
     def get_assets(self) -> list[str]:
