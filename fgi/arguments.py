@@ -37,8 +37,7 @@ class Arguments:
             "--architectures",
             nargs="*",
             choices=ARCHITECTURES.keys(),
-            default=ARCHITECTURES.keys(),
-            help="Target architecture(s) for frida-gadget",
+            help="Target architecture(s) for frida-gadget. Defaults to already existing in APK",
         )
 
         _ = parser.add_argument(
@@ -152,7 +151,6 @@ class Arguments:
     def pick_loader(self) -> type[BaseLoader]:
         if self.is_split_apk():
             return SplitAPKLoader
-        elif self.is_split_apk():
+        if self.is_xapk():
             raise RuntimeError("XAPK is not supported yet")
-        else:
-            return APKLoader
+        return APKLoader
