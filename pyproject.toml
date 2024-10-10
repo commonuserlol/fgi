@@ -21,6 +21,10 @@ lint.select = ["E4", "E7", "E9", "F", "W"]
 [tool.basedpyright]
 reportImportCycles = false
 
+[tool.pylint.'MESSAGES CONTROL']
+max-line-length = 160
+disable = "missing-module-docstring,missing-class-docstring,missing-function-docstring,raise-missing-from,broad-exception-caught"
+
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"

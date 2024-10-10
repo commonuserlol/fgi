@@ -9,12 +9,12 @@ class Downloader:
     def __init__(self, url: str, tagged_url: str):
         self.url = url
         self.tagged_url = tagged_url
-        self.tag: str = None
+        self.tag: str = ""
 
     def _request(self, url: str):
         try:
             Logger.debug(f"Requesting {url}...")
-            response = requests.get(url)
+            response = requests.get(url, timeout=10)
         except requests.ConnectionError:
             raise RuntimeError(f"Request to {url} is timed out")
         assert response.status_code == 200, f"Failed making request to {url}, status code is not 200"

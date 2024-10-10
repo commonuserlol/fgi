@@ -5,14 +5,15 @@ from pathlib import Path
 from fgi.constants import APKEDITOR_TAGGED_URL, APKEDITOR_URL, ARCHITECTURES, FRIDA_GADGET_ARCH_PATTERN, FRIDA_TAGGED_URL, FRIDA_URL
 from fgi.downloader import Downloader
 from fgi.logger import Logger
+from fgi.utils.not_none import not_none
 
 
 class Cache:
-    def __init__(self):
+    def __init__(self) -> None:
         self.home = Path.home() / ".fgi"
         self.metadata = self.home / "metadata.json"
         self.is_metadata_open = False
-        self.metadata_dict: dict[str, str] = None
+        self.metadata_dict: dict[str, str] = {}
 
     def _open_metadata(self):
         if self.is_metadata_open:
@@ -58,7 +59,7 @@ class Cache:
                     f.write(decompressed_data)
         self.set_version("frida", tag)
 
-    def check_and_download_apkeditor(self):
+    def check_and_download_apkeditor(self) -> None:
         downloader = Downloader(APKEDITOR_URL, APKEDITOR_TAGGED_URL)
         tag = downloader.get_latest_release_tag()
         if tag == self.get_version("apkeditor"):
@@ -76,7 +77,7 @@ class Cache:
 
     def get_version(self, key: str) -> str:
         self._open_metadata()
-        return self.metadata_dict.get(key)
+        return not_none(self.metadata_dict.get(key))
 
     def set_version(self, key: str, value: str):
         self._open_metadata()

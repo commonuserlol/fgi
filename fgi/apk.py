@@ -9,6 +9,7 @@ from fgi.cmd import run_command_and_check
 from fgi.loaders.base import BaseLoader
 from fgi.loaders.split import SplitAPKLoader
 from fgi.logger import Logger
+from fgi.utils.not_none import not_none
 
 
 class APK:
@@ -16,8 +17,6 @@ class APK:
         self.apkeditor_path = apkeditor_path
         self.arguments = arguments
         self.loader = loader
-
-        # Well, I could use @property but python will complain if I use lazy decorator
         self.temp_path = self.arguments.temp_root_path / "".join(random.choices(string.ascii_letters, k=12))
 
     @property
@@ -126,7 +125,7 @@ class APK:
         )
         shutil.move(
             self._signed_apk_path,
-            self.arguments.out,  # pyright: ignore[reportArgumentType]
+            not_none(self.arguments.out),  # pyright: ignore[reportArgumentType]
         )  # XXX: assume that everything is ready
 
     def get_entry_activity(self):

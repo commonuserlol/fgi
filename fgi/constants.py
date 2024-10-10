@@ -24,6 +24,6 @@ SMALI_FULL_LOAD_LIBRARY = (
     ".end method\n"
 )
 
-SMALI_PARTIAL_LOAD_LIBRARY = '\n    const-string v0, "%s"\n' "\n" "    invoke-static {v0}, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V\n"
+SMALI_PARTIAL_LOAD_LIBRARY = '\n    const-string v0, "%s"\n' + "\n" + "    invoke-static {v0}, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V\n"
 
 PREFIXES = ["m", "b", "z", "s"]

@@ -31,7 +31,7 @@ class Arguments:
     def create():
         parser = argparse.ArgumentParser()
         _ = parser.add_argument("-i", "--input", type=Path, required=True, help="Target APK file")
-        _ = parser.add_argument("-o", "--out", type=Path, help="Output APK file")  # XXX: default value determined after arguments parsed
+        _ = parser.add_argument("-o", "--out", type=Path, help="Output APK file")
         _ = parser.add_argument(
             "-a",
             "--architectures",

@@ -48,6 +48,7 @@ class Smali:
                 continue
 
             return pos - 1
+        raise RuntimeError("Failed to determine injection point")
 
     def find_end_of_method(self, start: int) -> int:
         end_methods = [(i + start) for i, x in enumerate(self.content[start:]) if ".end method" in x]
@@ -111,10 +112,10 @@ class Smali:
 
         # pick the first position for the inject. add one line as we
         # want to inject right below the comment we matched
-        marker = marker[0] + 1
+        marker_value = marker[0] + 1
 
-        self.put_load_library(library_name, marker)
-        self.update_locals(marker)
+        self.put_load_library(library_name, marker_value)
+        self.update_locals(marker_value)
 
     def __del__(self):
         with open(self.path, "w", encoding="utf8") as f:
