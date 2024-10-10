@@ -46,6 +46,7 @@ class Arguments:
             "--config-type",
             type=str,
             choices=["listen", "connect", "script"],
+            default="listen",
             help="Target config type",
         )
         _ = parser.add_argument("-c", "--config-path", type=Path, help="Custom config path")
