@@ -1,5 +1,4 @@
 import shutil
-from typing import override
 
 from fgi.cmd import run_command_and_check
 from fgi.loaders.base import BaseLoader
@@ -46,12 +45,10 @@ class SplitAPKLoader(BaseLoader):
     def merge_temp_path(self):
         return self.temp_path / (self.source.absolute().name + "-merge-temp")
 
-    @override
     def load(self):
         self._merge()
 
     @property
-    @override
     def output_path(self):
         return self.source / (self.source.absolute().name + "-merged")
 
