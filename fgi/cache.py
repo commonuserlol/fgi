@@ -36,15 +36,20 @@ class Cache:
             with open(self.metadata, "w+", encoding="utf8") as f:
                 json.dump({"frida": "v0", "apkeditor": "v0"}, f)
 
-    def check_and_download_frida(self):
+    def check_and_download_frida(self, target_version: str | None = None):
         downloader = Downloader(FRIDA_URL, FRIDA_TAGGED_URL)
-        tag = downloader.get_latest_release_tag()
+        if target_version:
+            tag = target_version
+        else:
+            tag = downloader.get_latest_release_tag()
+
         if tag == self.get_version("frida"):
             return
 
-        Logger.info("Downloading frida-gadget...")
+        Logger.info(f"Downloading frida-gadget (v{tag})...")
 
-        assets = downloader.get_assets()
+        assets = downloader.get_assets(tag)
+
         for asset in assets:
             if not ("gadget" in asset and "android" in asset):
                 continue

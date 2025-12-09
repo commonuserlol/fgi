@@ -24,6 +24,7 @@ class Arguments:
     script_name: str
     temp_root_path: Path
     no_cleanup: bool
+    frida_version: str
     offline_mode: bool
     verbose: bool
 
@@ -80,6 +81,7 @@ class Arguments:
             action="store_true",
             help="Do not remove temporary directory (useful for debugging)",
         )
+        _ = parser.add_argument("--frida-version", type=str, help="Specific frida version (e.g 16.7.19)")
         _ = parser.add_argument("--offline-mode", action="store_true", help="Disable updates check for deps")
         _ = parser.add_argument(
             "-v",
@@ -100,6 +102,7 @@ class Arguments:
             args.script_name,  # pyright: ignore[reportAny]
             args.temp_root_path,  # pyright: ignore[reportAny]
             args.no_cleanup,  # pyright: ignore[reportAny]
+            args.frida_version,  # pyright: ignore[reportAny]
             args.offline_mode,  # pyright: ignore[reportAny]
             args.verbose,  # pyright: ignore[reportAny]
         )
