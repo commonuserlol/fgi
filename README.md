@@ -55,18 +55,20 @@ If you need to use other configuration options, such as using v8 runtime, consid
 
 2. `fgi -i target.apk -o out.apk` - same as 1 + ready APK will be named `out.apk` instead of `target.patched.apk`
 
-3. `fgi -i target.apk -a arm64 --offline-mode` - inject **ONLY arm64** frida-gadget into target.apk with **listen** mode and **skip frida-gadget & APKEditor update check**
+3. `fgi -i target.apk --frida-version 16.7.19` - use specific version (16.7.19) of frida-gadget instead of the latest one
 
-4. `fgi -i . -t script -l index.js -a arm64 arm` - inject **ONLY arm64 and arm** frida-gadget into split APKs in currect directory with `index.js` as **script**
+4. `fgi -i target.apk -a arm64 --offline-mode` - inject **ONLY arm64** frida-gadget into target.apk with **listen** mode and **skip frida-gadget & APKEditor update check**
 
-5. `fgi -i . -c myconfig.json -r .` - inject frida-gadget for **existing architectures** into **split APKs** in currect directory with **myconfig.json** config and current directory as parent temporary directory **(DANGEROUS, current directory will be filled with temp files)**
+5. `fgi -i . -t script -l index.js -a arm64 arm` - inject **ONLY arm64 and arm** frida-gadget into split APKs in currect directory with `index.js` as **script**
+
+6. `fgi -i . -c myconfig.json -r .` - inject frida-gadget for **existing architectures** into **split APKs** in currect directory with **myconfig.json** config and current directory as parent temporary directory **(DANGEROUS, current directory will be filled with temp files)**
     * `fgi` **will check does config require script and raise exception** if no `-l` option provided
     * Parent temporary directory **also will be checked**
 
-6. `fgi -i target.apk -t script -n libnotafrida.so -s libnotascript.so` - same as 1, but use **script** type + rename frida-gadget into `libnotafrida.so` and script into `libnotascript.so`
+7. `fgi -i target.apk -t script -n libnotafrida.so -s libnotascript.so` - same as 1, but use **script** type + rename frida-gadget into `libnotafrida.so` and script into `libnotascript.so`
     * Both frida-gadget and script libraries name **must be prefixed** with `lib` and end with `.so`
 
-7. `fgi -i target.apk --config-type listen --no-cleanup -v` - same as 1 + do **NOT** remove temporary directory and enable debug logs
+8. `fgi -i target.apk --config-type listen --no-cleanup -v` - same as 1 + do **NOT** remove temporary directory and enable debug logs
     * Temporary directory can be found using log message:
 
     ```

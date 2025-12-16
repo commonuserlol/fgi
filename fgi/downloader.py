@@ -26,8 +26,10 @@ class Downloader:
             Logger.debug(f"Latest release tag for {self.url}: {self.tag}")
         return self.tag
 
-    def get_assets(self) -> list[str]:
-        return [asset["browser_download_url"] for asset in self._request(self.tagged_url % self.get_latest_release_tag()).json()["assets"]]
+    def get_assets(self, tag: str | None = None) -> list[str]:
+        target_tag = tag if tag else self.get_latest_release_tag()
+        url = self.tagged_url % target_tag
+        return [asset["browser_download_url"] for asset in self._request(url).json()["assets"]]
 
     def get_asset(self, url: str) -> bytes:
         return self._request(url).content

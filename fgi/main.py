@@ -22,7 +22,7 @@ class App:
         cache.ensure()
 
         if not arguments.offline_mode:
-            cache.check_and_download_frida()
+            cache.check_and_download_frida(target_version=arguments.frida_version)
             cache.check_and_download_apkeditor()
         else:
             Logger.warn("Skipping update check for deps")
